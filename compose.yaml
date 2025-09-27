@@ -1,1 +1,32 @@
+version: '3.8'
+
 services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    container_name: keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin123
+    ports:
+      - "8080:8080"
+    command: start-dev
+    volumes:
+      - ./keycloak-data:/opt/keycloak/data
+    networks:
+      - app-network
+
+  spring-keycloack-app:
+    build: .
+    container_name: spring-webflux-app
+    depends_on:
+      - keycloak
+    environment:
+      KEYCLOAK_URL: http://keycloak:8080
+    ports:
+      - "8090:8090"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
