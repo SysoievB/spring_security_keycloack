@@ -145,4 +145,3 @@ For local development, use:
 - Check the realm name matches in both Keycloak and application.properties
 - Verify client configuration in Keycloak
 - Check logs with `docker-compose logs spring-app`
-  - hMsHPVsQ7fXL5dMBGejtlcRcknFWio4Z
